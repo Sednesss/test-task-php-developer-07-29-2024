@@ -1,0 +1,86 @@
+version: '3'
+services:
+
+    app:
+        build:
+            context: .
+            dockerfile: _docker/app/Dockerfile
+        container_name: test_task_07292024_app
+        image: test_task_07292024_app
+        restart: unless-stopped
+        tty: true
+        expose:
+            - "9000"
+        environment:
+            SERVICE_NAME: app
+            SERVICE_TAGS: dev
+        working_dir: /var/www/test-task-php-developer-07-29-2024/app
+        volumes:
+            - ./:/var/www/test-task-php-developer-07-29-2024/app
+            - ./_docker/app/local.ini:/usr/local/etc/php/conf.d/local.ini
+        depends_on:
+            - db
+            - redis
+        networks:
+            - test_task_07292024_bridge
+
+    webserver:
+        image: nginx:alpine
+        container_name: test_task_07292024_webserver
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - ./_docker/nginx/default.conf.template:/etc/nginx/templates/default.conf.template
+            - ./:/var/www/test-task-php-developer-07-29-2024/app
+        environment:
+            SERVER_NAME: "localhost"
+            APP_PUBLIC_PATH: "/var/www/test-task-php-developer-07-29-2024/app/public"
+            APP_CONTAINER_NAME: "test_task_07292024_app"
+            APP_PORT: "9000"
+        depends_on:
+            - app
+        networks:
+            - test_task_07292024_bridge
+
+    db:
+        image: postgres:14.5
+        container_name: test_task_07292024_db
+        restart: unless-stopped
+        shm_size: 128mb
+        tty: true
+        ports:
+            - "${DB_PORT}:5432"
+        environment:
+            POSTGRES_DB: ${DB_DATABASE}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+            POSTGRES_USER: ${DB_USERNAME}
+            SERVICE_NAME: postgres
+            SERVICE_TAGS: dev
+        volumes:
+            - ./_docker/postgres:/docker-entrypoint-initdb.d
+            - test_task_07292024_db_data:/var/lib/postgresql/data
+        env_file:
+            - .env
+        networks:
+            - test_task_07292024_bridge
+
+    redis:
+        image: redis:alpine
+        container_name: test_task_07292024_redis
+        restart: unless-stopped
+        ports:
+          - "${REDIS_PORT}:6379"
+        env_file:
+            - .env
+        networks:
+            - test_task_07292024_bridge
+
+networks:
+    test_task_07292024_bridge:
+        driver: bridge
+volumes:
+    test_task_07292024_db_data:
+        driver: local
