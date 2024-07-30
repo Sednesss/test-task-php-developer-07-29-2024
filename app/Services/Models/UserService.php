@@ -5,7 +5,6 @@ namespace App\Services\Models;
 use App\DTO\Models\UserDTO;
 use App\Exceptions\Models\UserNotFoundException;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\UniqueConstraintViolationException;
 
 class UserService
@@ -34,19 +33,20 @@ class UserService
     /**
      * @throws UniqueConstraintViolationException
      */
-    public function create(UserDTO $userDTO)
+    public function create(UserDTO $userDTO): User
     {
-        $this->model->create($userDTO->toArray());
+        return $this->model->create($userDTO->toArray());
     }
 
     /**
      * @throws UserNotFoundException
      * @throws UniqueConstraintViolationException
      */
-    public function update(UserDTO $userDTO)
+    public function update(UserDTO $userDTO): User
     {
         $user = $this->find($userDTO->id);
         $user->update($userDTO->toArray());
+        return $user;
     }
 
     /**
@@ -56,14 +56,5 @@ class UserService
     {
         $user = $this->find($id);
         $user->delete($user->id);
-    }
-
-    /**
-     * @throws UserNotFoundException
-     */
-    public function getRoles(string $id): Collection
-    {
-        $user = $this->find($id);
-        return $user->roles;
     }
 }
