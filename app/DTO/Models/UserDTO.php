@@ -22,9 +22,6 @@ class UserDTO extends Data
     public ?string $date_of_birth;
     public ?string $address;
 
-    public ?string $created_at;
-    public ?string $updated_at;
-
     public function asCustomerDTO(): CustomerDTO
     {
         return CustomerDTO::from([
@@ -40,8 +37,6 @@ class UserDTO extends Data
             'phone' => $this->phone,
             'date_of_birth' => $this->date_of_birth,
             'address' => $this->address,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ]);
     }
 
@@ -57,8 +52,6 @@ class UserDTO extends Data
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'father_name' => $this->father_name,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ]);
     }
 }

@@ -24,7 +24,10 @@ class User extends Authenticatable
         'password',
         'first_name',
         'last_name',
-        'father_name'
+        'father_name',
+        'phone',
+        'date_of_birth',
+        'address'
     ];
 
     /**
@@ -47,8 +50,16 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'date_of_birth' => 'date:Y-m-d'
         ];
     }
+
+    /*
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['date_of_birth'];
 
     public function statements(): HasMany
     {

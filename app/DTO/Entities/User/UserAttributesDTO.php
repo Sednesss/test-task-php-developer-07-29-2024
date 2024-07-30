@@ -16,7 +16,4 @@ class UserAttributesDTO extends Data
     public ?string $first_name;
     public ?string $last_name;
     public ?string $father_name;
-
-    public ?string $created_at;
-    public ?string $updated_at;
 }

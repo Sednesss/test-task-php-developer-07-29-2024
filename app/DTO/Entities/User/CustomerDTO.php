@@ -25,8 +25,6 @@ class CustomerDTO extends UserAttributesDTO
             'phone' => $this->phone,
             'date_of_birth' => $this->date_of_birth,
             'address' => $this->address,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ]);
     }
 }

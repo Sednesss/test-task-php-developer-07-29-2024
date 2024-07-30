@@ -21,8 +21,6 @@ class AdminDTO extends UserAttributesDTO
             'phone' => null,
             'date_of_birth' => null,
             'address' => null,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ]);
     }
 }
