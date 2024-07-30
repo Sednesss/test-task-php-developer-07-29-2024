@@ -21,11 +21,13 @@ class UpdateTest extends UserServiceTestCase
 
     public function testSuccessfulCompletion()
     {
-        $user = User::factory()->create();
-        $userDTO = UserDTO::from($user->toArray());
+        $user = User::factory([
+            'email_verified_at' => null,
+            'password' => bcrypt('password'),
+            'remember_token' => null
+        ])->create();
 
-        $userDTO->password = bcrypt('password');
-        $userDTO->email_verified_at = Carbon::now();
+        $userDTO = UserDTO::from($user->toArray());
         $userDTO->name = $this->faker->name();
         $userDTO->email = $this->faker->email();
         $userDTO->password = bcrypt($this->faker->name());
@@ -38,19 +40,17 @@ class UpdateTest extends UserServiceTestCase
 
         $userUpdate = $this->userService->update($userDTO);
 
-        $userDTOasArray = $userDTO->toArray();
-        unset($userDTOasArray['remember_token']);
-
-        $this->assertDatabaseHas('users', $userDTOasArray);
+        $this->assertDatabaseHas('users', $userDTO->toArray());
     }
 
     public function testUserNotFoundException()
     {
-        $user = User::factory()->create();
-        $userDTO = UserDTO::from($user->toArray());
+        $user = User::factory([
+            'email_verified_at' => null,
+            'password' => bcrypt('password')
+        ])->create();
 
-        $userDTO->password = bcrypt('password');
-        $userDTO->email_verified_at = Carbon::now();
+        $userDTO = UserDTO::from($user->toArray());
         $userDTO->name = $this->faker->name();
         $userDTO->email = $this->faker->email();
         do {
@@ -64,13 +64,13 @@ class UpdateTest extends UserServiceTestCase
 
     public function testUniqueConstraintViolationException()
     {
-        $userExisting = User::factory()->create();
+        $userExisting = User::factory([
+            'email_verified_at' => null,
+            'password' => bcrypt('password')
+        ])->create();
 
         $user = User::factory()->create();
         $userDTO = UserDTO::from($user->toArray());
-
-        $userDTO->password = bcrypt('password');
-        $userDTO->email_verified_at = Carbon::now();
         $userDTO->name = $this->faker->name();
         $userDTO->email = $userExisting->email;
 

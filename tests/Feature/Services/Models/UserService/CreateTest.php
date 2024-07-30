@@ -19,11 +19,12 @@ class CreateTest extends UserServiceTestCase
 
     public function testSuccessfulCompletion()
     {
-        $user = User::factory()->make();
-        $userDTO = UserDTO::from($user->toArray());
+        $user = User::factory([
+            'email_verified_at' => null
+        ])->make();
 
+        $userDTO = UserDTO::from($user->toArray());
         $userDTO->password = bcrypt('password');
-        $userDTO->email_verified_at = null;
 
         $userCreate = $this->userService->create($userDTO);
 
@@ -32,11 +33,12 @@ class CreateTest extends UserServiceTestCase
 
     public function testUniqueConstraintViolationException()
     {
-        $user = User::factory()->create();
-        $userDTO = UserDTO::from($user->toArray());
+        $user = User::factory([
+            'email_verified_at' => null
+        ])->create();
 
+        $userDTO = UserDTO::from($user->toArray());
         $userDTO->password = bcrypt('password');
-        $userDTO->email_verified_at = null;
 
         $this->expectException(UniqueConstraintViolationException::class);
 

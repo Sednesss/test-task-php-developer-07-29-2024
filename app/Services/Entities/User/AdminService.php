@@ -35,7 +35,7 @@ class AdminService
     {
         $user = $this->userService->find($adminId);
 
-        if ($this->isAdmin($user)) {
+        if (!$this->isAdmin($user)) {
             throw new UserNotAdminException();
         }
 
@@ -59,14 +59,26 @@ class AdminService
      */
     public function update(AdminDTO $adminDTO): User
     {
+        $user = $this->userService->find($adminDTO->id);
+
+        if (!$this->isAdmin($user)) {
+            throw new UserNotAdminException();
+        }
+
         return $this->userService->update($adminDTO->asUserDTO());
     }
 
     /**
      * @throws UserNotFoundException
      */
-    public function delete(string $customerId)
+    public function delete(string $adminId)
     {
-        $this->userService->delete($customerId);
+        $user = $this->userService->find($adminId);
+
+        if (!$this->isAdmin($user)) {
+            throw new UserNotAdminException();
+        }
+
+        $this->userService->delete($adminId);
     }
 }

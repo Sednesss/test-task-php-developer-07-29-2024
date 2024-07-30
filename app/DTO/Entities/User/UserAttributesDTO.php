@@ -6,7 +6,7 @@ use Spatie\LaravelData\Data;
 
 class UserAttributesDTO extends Data
 {
-    public int $id;
+    public ?int $id;
     public string $name;
     public string $email;
     public ?string $email_verified_at;

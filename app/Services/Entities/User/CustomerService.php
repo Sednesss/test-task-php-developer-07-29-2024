@@ -35,7 +35,7 @@ class CustomerService
     {
         $user = $this->userService->find($customerId);
 
-        if ($this->isCustomer($user)) {
+        if (!$this->isCustomer($user)) {
             throw new UserNotCustomerException();
         }
 
@@ -55,10 +55,17 @@ class CustomerService
 
     /**
      * @throws UserNotFoundException
+     * @throws UserNotCustomerException
      * @throws UniqueConstraintViolationException
      */
     public function update(CustomerDTO $customerDTO): User
     {
+        $user = $this->userService->find($customerDTO->id);
+
+        if (!$this->isCustomer($user)) {
+            throw new UserNotCustomerException();
+        }
+
         return $this->userService->update($customerDTO->asUserDTO());
     }
 
@@ -67,6 +74,12 @@ class CustomerService
      */
     public function delete(string $customerId)
     {
+        $user = $this->userService->find($customerId);
+
+        if (!$this->isCustomer($user)) {
+            throw new UserNotCustomerException();
+        }
+        
         $this->userService->delete($customerId);
     }
 }
