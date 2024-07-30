@@ -3,7 +3,7 @@
 namespace Tests\Feature\Services\Entities\User\AdminService;
 
 use App\Enums\Models\UserRolesEnum;
-use App\Exceptions\Models\UserNotAdminException;
+use App\Exceptions\Models\UserIsNotAdminException;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -28,12 +28,12 @@ class FindTest extends AdminServiceTestCase
         $this->assertEquals($user->toArray(), $userFindAsArray);
     }
 
-    public function testUserNotAdminException()
+    public function testUserIsNotAdminException()
     {
         $user = User::factory()->create();
         $user->assignRole(UserRolesEnum::CUSTOMER);
 
-        $this->expectException(UserNotAdminException::class);
+        $this->expectException(UserIsNotAdminException::class);
 
         $userFind = $this->adminService->find($user->id);
     }

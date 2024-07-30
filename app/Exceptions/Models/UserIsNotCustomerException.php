@@ -4,7 +4,7 @@ namespace App\Exceptions\Models;
 
 use App\Exceptions\BaseException;
 
-class UserNotCustomerException extends BaseException
+class UserIsNotCustomerException extends BaseException
 {
     public function __construct(string $message = '', array $args = [])
     {

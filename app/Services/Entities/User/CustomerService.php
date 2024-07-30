@@ -4,7 +4,7 @@ namespace App\Services\Entities\User;
 
 use App\DTO\Entities\User\CustomerDTO;
 use App\Enums\Models\UserRolesEnum;
-use App\Exceptions\Models\UserNotCustomerException;
+use App\Exceptions\Models\UserIsNotCustomerException;
 use App\Exceptions\Models\UserNotFoundException;
 use App\Models\User;
 use App\Services\Models\UserService;
@@ -29,14 +29,14 @@ class CustomerService
 
     /**
      * @throws UserNotFoundException
-     * @throws UserNotCustomerException
+     * @throws UserIsNotCustomerException
      */
     public function find(string $customerId): User
     {
         $user = $this->userService->find($customerId);
 
         if (!$this->isCustomer($user)) {
-            throw new UserNotCustomerException();
+            throw new UserIsNotCustomerException();
         }
 
         return $user;
@@ -55,7 +55,7 @@ class CustomerService
 
     /**
      * @throws UserNotFoundException
-     * @throws UserNotCustomerException
+     * @throws UserIsNotCustomerException
      * @throws UniqueConstraintViolationException
      */
     public function update(CustomerDTO $customerDTO): User
@@ -63,7 +63,7 @@ class CustomerService
         $user = $this->userService->find($customerDTO->id);
 
         if (!$this->isCustomer($user)) {
-            throw new UserNotCustomerException();
+            throw new UserIsNotCustomerException();
         }
 
         return $this->userService->update($customerDTO->asUserDTO());
@@ -77,7 +77,7 @@ class CustomerService
         $user = $this->userService->find($customerId);
 
         if (!$this->isCustomer($user)) {
-            throw new UserNotCustomerException();
+            throw new UserIsNotCustomerException();
         }
         
         $this->userService->delete($customerId);

@@ -4,7 +4,7 @@ namespace Tests\Feature\Services\Entities\User\AdminService;
 
 use App\DTO\Entities\User\AdminDTO;
 use App\Enums\Models\UserRolesEnum;
-use App\Exceptions\Models\UserNotAdminException;
+use App\Exceptions\Models\UserIsNotAdminException;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -39,7 +39,7 @@ class UpdateTest extends AdminServiceTestCase
         $this->assertDatabaseHas('users', $adminDTO->asUserDTO()->toArray());
     }
 
-    public function testUserNotAdminException()
+    public function testUserIsNotAdminException()
     {
         $user = User::factory([
             'email_verified_at' => null,
@@ -52,7 +52,7 @@ class UpdateTest extends AdminServiceTestCase
         $adminDTO->name = $this->faker->name();
         $adminDTO->email = $this->faker->email();
 
-        $this->expectException(UserNotAdminException::class);
+        $this->expectException(UserIsNotAdminException::class);
 
         $userUpdate = $this->adminService->update($adminDTO);
     }

@@ -4,7 +4,7 @@ namespace Tests\Feature\Services\Entities\User\CustomerService;
 
 use App\DTO\Entities\User\CustomerDTO;
 use App\Enums\Models\UserRolesEnum;
-use App\Exceptions\Models\UserNotCustomerException;
+use App\Exceptions\Models\UserIsNotCustomerException;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -33,7 +33,7 @@ class DeleteTest extends CustomerServiceTestCase
         $this->assertDatabaseMissing('users', $customerDTO->asUserDTO()->toArray());
     }
 
-    public function testUserNotCustomerException()
+    public function testUserIsNotCustomerException()
     {
         $user = User::factory([
             'email_verified_at' => null,
@@ -44,7 +44,7 @@ class DeleteTest extends CustomerServiceTestCase
 
         $customerDTO = CustomerDTO::from($user->toArray());
 
-        $this->expectException(UserNotCustomerException::class);
+        $this->expectException(UserIsNotCustomerException::class);
 
         $this->customerService->delete($customerDTO->id);
     }

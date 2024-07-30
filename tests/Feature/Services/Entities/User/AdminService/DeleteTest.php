@@ -4,7 +4,7 @@ namespace Tests\Feature\Services\Entities\User\AdminService;
 
 use App\DTO\Entities\User\AdminDTO;
 use App\Enums\Models\UserRolesEnum;
-use App\Exceptions\Models\UserNotAdminException;
+use App\Exceptions\Models\UserIsNotAdminException;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -33,7 +33,7 @@ class DeleteTest extends AdminServiceTestCase
         $this->assertDatabaseMissing('users', $adminDTO->asUserDTO()->toArray());
     }
 
-    public function testUserNotAdminException()
+    public function testUserIsNotAdminException()
     {
         $user = User::factory([
             'email_verified_at' => null,
@@ -44,7 +44,7 @@ class DeleteTest extends AdminServiceTestCase
 
         $adminDTO = AdminDTO::from($user->toArray());
 
-        $this->expectException(UserNotAdminException::class);
+        $this->expectException(UserIsNotAdminException::class);
 
         $this->adminService->delete($adminDTO->id);
     }

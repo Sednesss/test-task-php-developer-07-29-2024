@@ -4,7 +4,7 @@ namespace App\Services\Entities\User;
 
 use App\DTO\Entities\User\AdminDTO;
 use App\Enums\Models\UserRolesEnum;
-use App\Exceptions\Models\UserNotAdminException;
+use App\Exceptions\Models\UserIsNotAdminException;
 use App\Exceptions\Models\UserNotFoundException;
 use App\Models\User;
 use App\Services\Models\UserService;
@@ -29,14 +29,14 @@ class AdminService
 
     /**
      * @throws UserNotFoundException
-     * @throws UserNotAdminException
+     * @throws UserIsNotAdminException
      */
     public function find(string $adminId): User
     {
         $user = $this->userService->find($adminId);
 
         if (!$this->isAdmin($user)) {
-            throw new UserNotAdminException();
+            throw new UserIsNotAdminException();
         }
 
         return $user;
@@ -62,7 +62,7 @@ class AdminService
         $user = $this->userService->find($adminDTO->id);
 
         if (!$this->isAdmin($user)) {
-            throw new UserNotAdminException();
+            throw new UserIsNotAdminException();
         }
 
         return $this->userService->update($adminDTO->asUserDTO());
@@ -76,7 +76,7 @@ class AdminService
         $user = $this->userService->find($adminId);
 
         if (!$this->isAdmin($user)) {
-            throw new UserNotAdminException();
+            throw new UserIsNotAdminException();
         }
 
         $this->userService->delete($adminId);

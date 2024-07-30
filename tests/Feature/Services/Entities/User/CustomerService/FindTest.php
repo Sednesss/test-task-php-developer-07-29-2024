@@ -3,7 +3,7 @@
 namespace Tests\Feature\Services\Entities\User\CustomerService;
 
 use App\Enums\Models\UserRolesEnum;
-use App\Exceptions\Models\UserNotCustomerException;
+use App\Exceptions\Models\UserIsNotCustomerException;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -28,12 +28,12 @@ class FindTest extends CustomerServiceTestCase
         $this->assertEquals($user->toArray(), $userFindAsArray);
     }
 
-    public function testUserNotCustomerException()
+    public function testUserIsNotCustomerException()
     {
         $user = User::factory()->create();
         $user->assignRole(UserRolesEnum::ADMIN);
 
-        $this->expectException(UserNotCustomerException::class);
+        $this->expectException(UserIsNotCustomerException::class);
 
         $userFind = $this->customerService->find($user->id);
     }
