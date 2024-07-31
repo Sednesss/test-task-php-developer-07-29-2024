@@ -20,6 +20,7 @@ class Statement extends Model
         'number',
         'category',
         'title',
+        'state',
         'content',
         'date',
         'file',
