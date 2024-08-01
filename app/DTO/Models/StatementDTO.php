@@ -12,7 +12,7 @@ class StatementDTO extends Data
 {
     public int $id;
     public int $user_id;
-    public ?string $number;
+    public ?int $number;
     #[WithCast(EnumCast::class, StatementCategoryEnum::class)]
     public StatementCategoryEnum $category;
     public string $title;
@@ -21,8 +21,4 @@ class StatementDTO extends Data
     public string $content;
     public string $date;
     public ?string $file;
-
-    public ?string $created_at;
-    public ?string $updated_at;
-    public ?string $deleted_at;
 }

@@ -10,6 +10,7 @@ use App\Exceptions\Models\UserIsNotCustomerException;
 use App\Exceptions\Models\UserNotFoundException;
 use App\Models\Statement;
 use App\Services\Entities\User\CustomerService;
+use Illuminate\Database\Eloquent\Collection;
 
 class StatementService
 {
@@ -39,9 +40,9 @@ class StatementService
     /**
      * @throws UserNotFoundException
      * @throws UserIsNotCustomerException
-     * @return Statement[]
+     * @return Collection|Statement[]
      */
-    public function list(string $customerId): array
+    public function list(string $customerId): Collection
     {
         $customer = $this->customerService->find($customerId);
 
@@ -63,15 +64,17 @@ class StatementService
     }
 
     /**
+     * @throws StatementNotFoundException
      * @throws UserNotFoundException
      * @throws UserIsNotCustomerException
-     * @throws StatementNotFoundException
      */
     public function update(StatementDTO $statementDTO): Statement
     {
+        $statement = $this->find($statementDTO->id);
+        $statementDTO->number = $statement->number;
+
         $customer = $this->customerService->find($statementDTO->user_id);
 
-        $statement = $this->find($statementDTO->id);
         $statement->update($statementDTO->toArray());
         return $statement;
     }
