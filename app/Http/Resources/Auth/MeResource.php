@@ -16,4 +16,9 @@ class MeResource extends JsonResource
     {
         return parent::toArray($request);
     }
+
+    public function withResponse($request, $response)
+    {
+        $response->setStatusCode(200);
+    }
 }

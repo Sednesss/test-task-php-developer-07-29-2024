@@ -18,4 +18,9 @@ class LogoutResource extends JsonResource
             'message' => 'Successfully logged out'
         ];
     }
+
+    public function withResponse($request, $response)
+    {
+        $response->setStatusCode(200);
+    }
 }

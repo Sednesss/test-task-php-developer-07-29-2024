@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\API\V1\Auth;
 
+use App\Enums\Models\UserRolesEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
 
 class RegisterRequest extends FormRequest
 {
@@ -53,6 +55,23 @@ class RegisterRequest extends FormRequest
                 'min:4',
                 'confirmed'
             ],
+            'role' => [
+                'required',
+                'string',
+                new Enum(UserRolesEnum::class),
+            ],
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'role.enum' => 'There is no such role.',
         ];
     }
 }

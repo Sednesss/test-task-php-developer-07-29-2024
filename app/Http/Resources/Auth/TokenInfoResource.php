@@ -20,4 +20,9 @@ class TokenInfoResource extends JsonResource
             'expires_in' => auth()->factory()->getTTL() * 60,
         ];
     }
+
+    public function withResponse($request, $response)
+    {
+        $response->setStatusCode(200);
+    }
 }
