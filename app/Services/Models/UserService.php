@@ -3,7 +3,7 @@
 namespace App\Services\Models;
 
 use App\DTO\Models\UserDTO;
-use App\Exceptions\Models\UserNotFoundException;
+use App\Exceptions\Models\User\UserNotFoundException;
 use App\Models\User;
 use Illuminate\Database\UniqueConstraintViolationException;
 

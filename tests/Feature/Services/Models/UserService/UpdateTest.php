@@ -3,9 +3,8 @@
 namespace Tests\Feature\Services\Models\UserService;
 
 use App\DTO\Models\UserDTO;
-use App\Exceptions\Models\UserNotFoundException;
+use App\Exceptions\Models\User\UserNotFoundException;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Feature\Services\Models\UserService\UserServiceTestCase;

@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Services\Models\UserService;
 
-use App\Exceptions\Models\UserNotFoundException;
+use App\Exceptions\Models\User\UserNotFoundException;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Feature\Services\Models\UserService\UserServiceTestCase;

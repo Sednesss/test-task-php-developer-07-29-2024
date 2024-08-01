@@ -3,7 +3,7 @@
 namespace Tests\Feature\Services\Entities\User\CustomerService;
 
 use App\Enums\Models\UserRolesEnum;
-use App\Exceptions\Models\UserIsNotCustomerException;
+use App\Exceptions\Models\User\UserIsNotCustomerException;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 

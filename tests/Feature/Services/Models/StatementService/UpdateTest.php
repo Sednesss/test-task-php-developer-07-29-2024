@@ -6,7 +6,7 @@ use App\DTO\Models\StatementDTO;
 use App\Enums\Models\StatementCategoryEnum;
 use App\Enums\Models\StatementStateEnum;
 use App\Enums\Models\UserRolesEnum;
-use App\Exceptions\Models\UserIsNotCustomerException;
+use App\Exceptions\Models\User\UserIsNotCustomerException;
 use App\Models\Statement;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;

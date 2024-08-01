@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exceptions\Models;
+namespace App\Exceptions\Models\User;
 
 use App\Exceptions\BaseException;
 

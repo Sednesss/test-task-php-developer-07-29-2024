@@ -4,8 +4,8 @@ namespace App\Services\Entities\User;
 
 use App\DTO\Entities\User\AdminDTO;
 use App\Enums\Models\UserRolesEnum;
-use App\Exceptions\Models\UserIsNotAdminException;
-use App\Exceptions\Models\UserNotFoundException;
+use App\Exceptions\Models\User\UserIsNotAdminException;
+use App\Exceptions\Models\User\UserNotFoundException;
 use App\Models\User;
 use App\Services\Models\UserService;
 use Illuminate\Database\UniqueConstraintViolationException;

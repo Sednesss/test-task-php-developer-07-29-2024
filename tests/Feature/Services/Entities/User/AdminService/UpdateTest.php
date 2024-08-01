@@ -4,7 +4,7 @@ namespace Tests\Feature\Services\Entities\User\AdminService;
 
 use App\DTO\Entities\User\AdminDTO;
 use App\Enums\Models\UserRolesEnum;
-use App\Exceptions\Models\UserIsNotAdminException;
+use App\Exceptions\Models\User\UserIsNotAdminException;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 

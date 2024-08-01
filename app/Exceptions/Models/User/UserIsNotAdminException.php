@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Exceptions\Models;
+namespace App\Exceptions\Models\User;
 
 use App\Exceptions\BaseException;
 
-class UserNotFoundException extends BaseException
+class UserIsNotAdminException extends BaseException
 {
     public function __construct(string $message = '', array $args = [])
     {
-        $message = $message ?: 'User not found in the database.';
+        $message = $message ?: 'The user does not have the role "admin".';
 
         parent::__construct($message, $args);
     }
