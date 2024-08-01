@@ -13,7 +13,14 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        $admin = Role::create(['name' => UserRolesEnum::ADMIN]);
-        $customer = Role::create(['name' => UserRolesEnum::CUSTOMER]);
+        $admin = Role::create([
+            'name' => UserRolesEnum::ADMIN,
+            'guard_name' => 'api'
+        ]);
+        
+        $customer = Role::create([
+            'name' => UserRolesEnum::CUSTOMER,
+            'guard_name' => 'api'
+        ]);
     }
 }
