@@ -9,7 +9,7 @@ class AuthTestCase extends TestCase
 {
     use RefreshDatabase;
 
-    protected $urlPrefix = '/api/v1/auth/';
+    protected string $urlPrefix = '/api/v1/auth/';
 
     public function setUp(): void
     {

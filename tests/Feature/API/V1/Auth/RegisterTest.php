@@ -11,7 +11,7 @@ class RegisterTest extends AuthTestCase
 {
     use RefreshDatabase;
 
-    private $endpointPrefix;
+    private string $endpointPrefix;
 
     public function setUp(): void
     {
