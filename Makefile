@@ -19,4 +19,4 @@ test:
 	docker exec -it test_task_07292024_app php artisan test
 
 gql-helper:
-	php artisan lighthouse:ide-helper
+	docker exec -it test_task_07292024_app php artisan lighthouse:ide-helper
