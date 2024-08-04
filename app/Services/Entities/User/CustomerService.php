@@ -8,6 +8,7 @@ use App\Exceptions\Models\User\UserIsNotCustomerException;
 use App\Exceptions\Models\User\UserNotFoundException;
 use App\Models\User;
 use App\Services\Models\UserService;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\UniqueConstraintViolationException;
 
 class CustomerService
@@ -40,6 +41,14 @@ class CustomerService
         }
 
         return $user;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function list(): Collection
+    {
+        return $this->userService->list(UserRolesEnum::CUSTOMER);
     }
 
     /**
@@ -79,7 +88,7 @@ class CustomerService
         if (!$this->isCustomer($user)) {
             throw new UserIsNotCustomerException();
         }
-        
+
         $this->userService->delete($customerId);
     }
 }
