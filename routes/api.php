@@ -33,8 +33,8 @@ Route::prefix('v1')->as('v1::')->group(function () {
             });
             Route::get('/', UserIndexController::class)->name('index');
             Route::get('/{user}', UserShowController::class)->name('show');
-            Route::put('/{user}', UserUpdateController::class)->name('update'); // -
-            Route::delete('/{user}', UserDestroyController::class)->name('destroy'); // -
+            Route::put('/{user}', UserUpdateController::class)->name('update');
+            Route::delete('/{user}', UserDestroyController::class)->name('destroy');
         });
     });
 });
