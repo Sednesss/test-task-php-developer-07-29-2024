@@ -59,6 +59,8 @@ class UserService
     public function update(UserDTO $userDTO): User
     {
         $user = $this->find($userDTO->id);
+        $userDTOAsArray = $userDTO->toArray();
+        unset($userDTOAsArray['password']);
         $user->update($userDTO->toArray());
         return $user;
     }
