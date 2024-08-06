@@ -1,0 +1,3 @@
+extend type Mutation {
+  statementsCreate(input: CreateStatementInput!): Statement! @field(resolver: "Models\\Statement\\CreateMutation") @guard(checks: ["auth:api"])
+}

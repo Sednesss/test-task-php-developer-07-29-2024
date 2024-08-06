@@ -1,0 +1,3 @@
+extend type Mutation {
+  statementsDelete(input: DeleteStatementInput!): DefaultMessage! @field(resolver: "Models\\Statement\\DeleteMutation") @guard(checks: ["auth:api"])
+}
