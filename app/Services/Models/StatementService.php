@@ -72,6 +72,13 @@ class StatementService
     {
         $statement = $this->find($statementDTO->id);
         $statementDTO->number = $statement->number;
+        $statementDTO->user_id = $statementDTO->user_id ?? $statement->user_id;
+
+        $statementDTO->category = $statementDTO->category ?? StatementCategoryEnum::from($statement->category);
+        $statementDTO->title = $statementDTO->title ?? $statement->title;
+        $statementDTO->content = $statementDTO->content ?? $statement->content;
+        $statementDTO->state = $statementDTO->state ?? StatementStateEnum::from($statement->state);
+        $statementDTO->date = $statementDTO->date ?? $statement->date;
 
         $customer = $this->customerService->find($statementDTO->user_id);
 

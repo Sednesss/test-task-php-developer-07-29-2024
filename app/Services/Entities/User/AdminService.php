@@ -8,6 +8,7 @@ use App\Exceptions\Models\User\UserIsNotAdminException;
 use App\Exceptions\Models\User\UserNotFoundException;
 use App\Models\User;
 use App\Services\Models\UserService;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\UniqueConstraintViolationException;
 
 class AdminService
@@ -40,6 +41,14 @@ class AdminService
         }
 
         return $user;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function list(): Collection
+    {
+        return $this->userService->list(UserRolesEnum::ADMIN);
     }
 
     /**

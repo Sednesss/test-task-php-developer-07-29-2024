@@ -5,7 +5,7 @@ namespace Tests\Feature\Services\Models\StatementService;
 use App\Enums\Models\StatementStateEnum;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class listStatesTest extends StatementServiceTestCase
+class ListStatesTest extends StatementServiceTestCase
 {
     use RefreshDatabase;
 

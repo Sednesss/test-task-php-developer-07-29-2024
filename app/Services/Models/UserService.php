@@ -3,8 +3,10 @@
 namespace App\Services\Models;
 
 use App\DTO\Models\UserDTO;
+use App\Enums\Models\UserRolesEnum;
 use App\Exceptions\Models\User\UserNotFoundException;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\UniqueConstraintViolationException;
 
 class UserService
@@ -31,6 +33,18 @@ class UserService
     }
 
     /**
+     * @return Collection|User[]
+     */
+    public function list(?UserRolesEnum $role): Collection
+    {
+        $users = $role instanceof UserRolesEnum
+            ? User::role($role)->get()
+            : User::all();
+
+        return $users->load('roles');
+    }
+
+    /**
      * @throws UniqueConstraintViolationException
      */
     public function create(UserDTO $userDTO): User
@@ -45,6 +59,8 @@ class UserService
     public function update(UserDTO $userDTO): User
     {
         $user = $this->find($userDTO->id);
+        $userDTOAsArray = $userDTO->toArray();
+        unset($userDTOAsArray['password']);
         $user->update($userDTO->toArray());
         return $user;
     }

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 class Statement extends Model
 {
@@ -25,6 +26,35 @@ class Statement extends Model
         'date',
         'file',
     ];
+
+    public function setDateAttribute(string $value)
+    {
+        $this->attributes['date'] = Carbon::parse($value)->format('Y-m-d');
+    }
+
+    public function getDateAttribute(): string
+    {
+        return Carbon::parse($this->attributes['date'])->format('Y-m-d');
+    }
+
+    public function getCreatedAtAttribute(): string
+    {
+        return Carbon::parse($this->attributes['created_at'])->format('Y-m-d H:i:s');
+    }
+
+    public function getUpdatedAtAttribute(): string
+    {
+        return Carbon::parse($this->attributes['updated_at'])->format('Y-m-d H:i:s');
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'date' => 'date:Y-m-d'
+        ];
+    }
+
+    protected $dates = ['date'];
 
     public function customer(): BelongsTo
     {

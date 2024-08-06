@@ -10,6 +10,9 @@ laravel:
 tinker:
 	docker exec -it test_task_07292024_app php artisan tinker
 
+routes-list:
+	docker exec -it test_task_07292024_app php artisan route:list
+
 cache-clear:
 	docker exec -it test_task_07292024_app php artisan cache:clear
 	docker exec -it test_task_07292024_app php artisan config:clear

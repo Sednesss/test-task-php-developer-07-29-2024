@@ -21,6 +21,6 @@ final readonly class ListQuery
     {
         $listRoles = $this->roleService->listUserRoles();
 
-        return array_map(fn(UserRolesEnum $role) => $role->value, $listRoles);
+        return array_map(fn (UserRolesEnum $role) => $role->value, $listRoles);
     }
 }

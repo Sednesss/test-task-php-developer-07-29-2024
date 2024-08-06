@@ -1,0 +1,3 @@
+extend type Mutation {
+  statementsUpdate(input: UpdateStatementInput!): Statement! @field(resolver: "Models\\Statement\\UpdateMutation")
+}

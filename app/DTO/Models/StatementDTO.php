@@ -14,11 +14,11 @@ class StatementDTO extends Data
     public int $user_id;
     public ?int $number;
     #[WithCast(EnumCast::class, StatementCategoryEnum::class)]
-    public StatementCategoryEnum $category;
-    public string $title;
+    public ?StatementCategoryEnum $category;
+    public ?string $title;
     #[WithCast(EnumCast::class, StatementStateEnum::class)]
-    public StatementStateEnum $state;
-    public string $content;
-    public string $date;
+    public ?StatementStateEnum $state;
+    public ?string $content;
+    public ?string $date;
     public ?string $file;
 }
