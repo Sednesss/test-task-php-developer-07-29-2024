@@ -39,7 +39,7 @@ make init-app
 http://localhost/api/documentation
 ```
 
-3. **Доступ к GraphiQL:**
+3. Доступ к описанию схемы GraphQL:
 
 ```
 http://localhost/graphiql
