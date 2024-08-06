@@ -20,3 +20,16 @@ input CreateStatementInput {
     content: String!
     date: Date!
 }
+
+input UpdateStatementInput {
+    id: ID!
+    category: String
+    title: String
+    content: String
+    state: String
+    date: Date
+}
+
+input DeleteStatementInput {
+    id: ID!
+}

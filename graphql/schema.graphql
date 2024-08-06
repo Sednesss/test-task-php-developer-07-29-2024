@@ -4,7 +4,11 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 "A date string with format `Y-m-d`, e.g. `2011-05-23`."
 scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 
+type Query
+
+type Mutation
+
 #import type/*.graphql
-#import query/models/role/user/list.graphql
-#import query/models/statement/find.graphql
-#import mutation/models/statement/create.graphql
+#import query/models/*/*/*.graphql
+#import query/models/*/*.graphql
+#import mutation/models/*/*.graphql
