@@ -1,3 +1,3 @@
 extend type Query {
-	statementsList(user_id: ID!): [Statement!] @field(resolver: "Models\\Statement\\ListQuery")
+	statementsList(user_id: ID!): [Statement!] @field(resolver: "Models\\Statement\\ListQuery") @guard(checks: ["auth:api"])
 }
