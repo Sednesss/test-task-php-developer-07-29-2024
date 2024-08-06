@@ -1,14 +1,34 @@
-nginx:
-	docker exec -it test_task_07292024_webserver sh
+.PHONY: dev init-app start stop down test phpstan swagger gql-helper routes-list cache-clear tinker nginx pg laravel
 
-pg:
-	docker exec -it test_task_07292024_db bash
+dev:
+	docker-compose up -d --build
 
-laravel:
-	docker exec -it test_task_07292024_app bash
+init-app:
+	docker exec -it test_task_07292024_app php artisan key:generate
+	docker exec -it test_task_07292024_app php artisan migrate --seed
+	docker exec -it test_task_07292024_app php artisan lighthouse:ide-helper
+	docker exec -it test_task_07292024_app php artisan l5-swagger:generate
 
-tinker:
-	docker exec -it test_task_07292024_app php artisan tinker
+start:
+	docker-compose up -d
+
+stop:
+	docker-compose stop
+
+down:
+	docker-compose down
+
+test:
+	docker exec -it test_task_07292024_app php artisan test
+
+phpstan:
+	docker exec -it test_task_07292024_app ./vendor/bin/phpstan analyse
+
+swagger:
+	docker exec -it test_task_07292024_app php artisan l5-swagger:generate
+
+gql-helper:
+	docker exec -it test_task_07292024_app php artisan lighthouse:ide-helper
 
 routes-list:
 	docker exec -it test_task_07292024_app php artisan route:list
@@ -18,14 +38,14 @@ cache-clear:
 	docker exec -it test_task_07292024_app php artisan config:clear
 	docker exec -it test_task_07292024_app php artisan route:clear
 
-test:
-	docker exec -it test_task_07292024_app php artisan test
+tinker:
+	docker exec -it test_task_07292024_app php artisan tinker
 
-gql-helper:
-	docker exec -it test_task_07292024_app php artisan lighthouse:ide-helper
+nginx:
+	docker exec -it test_task_07292024_webserver sh
 
-phpstan:
-	docker exec -it test_task_07292024_app ./vendor/bin/phpstan analyse
+pg:
+	docker exec -it test_task_07292024_db bash
 
-swagger:
-	docker exec -it test_task_07292024_app php artisan l5-swagger:generate
+laravel:
+	docker exec -it test_task_07292024_app bash
