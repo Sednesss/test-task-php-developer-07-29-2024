@@ -3,6 +3,7 @@
 namespace Tests\Feature\GraphQL\Query\Models\Statement;
 
 use App\Models\Statement;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -16,6 +17,8 @@ class ListQueryTest extends TestCase
 
     public function setUp(): void
     {
+
+
         parent::setUp();
     }
 
@@ -23,11 +26,17 @@ class ListQueryTest extends TestCase
     {
         $statement = Statement::factory(['content' => 'test_content'])->create();
 
-        $this->graphQL(
+        /** @var User $user */
+        $user = User::factory()->create();
+        $token = auth()->login($user);
+
+        $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token
+        ])->graphQL(
             /** @lang GraphQL */
             '
             {
-                statementsFind(id: "1") {
+                statementsFind(id: "' . $statement->id . '") {
                   id
                   user_id
                   number
@@ -77,6 +86,39 @@ class ListQueryTest extends TestCase
                     'deleted_at' => $statement->deleted_at
                 ]
             ]
+        ]);
+    }
+
+    public function testUnauthenticated()
+    {
+        $statement = Statement::factory(['content' => 'test_content'])->create();
+
+        $this->graphQL(
+            /** @lang GraphQL */
+            '
+            {
+                statementsFind(id: "' . $statement->id . '") {
+                  id
+                  user_id
+                  number
+                  title
+                  state
+                  category
+                  content
+                  date
+                  file
+                  created_at
+                  updated_at
+                  deleted_at
+                }
+              }
+            '
+        )->assertJsonStructure([
+            'errors' => [
+                '*' => [
+                    'message'
+                ]
+            ],
         ]);
     }
 }
