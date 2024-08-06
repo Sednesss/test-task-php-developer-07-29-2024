@@ -26,3 +26,6 @@ gql-helper:
 
 phpstan:
 	docker exec -it test_task_07292024_app ./vendor/bin/phpstan analyse
+
+swagger:
+	docker exec -it test_task_07292024_app php artisan l5-swagger:generate

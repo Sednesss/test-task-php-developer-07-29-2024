@@ -9,7 +9,6 @@ use App\Http\Controllers\API\V1\Role\User\ListController as RoleUserListControll
 use App\Http\Controllers\API\V1\User\DestroyController as UserDestroyController;
 use App\Http\Controllers\API\V1\User\IndexController as UserIndexController;
 use App\Http\Controllers\API\V1\User\ShowController as UserShowController;
-use App\Http\Controllers\API\V1\User\StoreController as UserStoreController;
 use App\Http\Controllers\API\V1\User\UpdateController as UserUpdateController;
 use Illuminate\Support\Facades\Route;
 

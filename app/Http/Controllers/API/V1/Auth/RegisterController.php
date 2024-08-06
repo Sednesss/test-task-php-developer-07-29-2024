@@ -11,6 +11,20 @@ use App\Http\Resources\Auth\TokenInfoResource;
 use App\Services\Entities\User\AdminService;
 use App\Services\Entities\User\CustomerService;
 
+/**
+ * @OA\Info(
+ *    title="APIs For Thrift Store",
+ *    version="1.0.0",
+ * ),
+ *   @OA\SecurityScheme(
+ *       securityScheme="bearerAuth",
+ *       in="header",
+ *       name="bearerAuth",
+ *       type="http",
+ *       scheme="bearer",
+ *       bearerFormat="JWT",
+ *    ),
+ */
 class RegisterController extends Controller
 {
     public function __invoke(
