@@ -27,6 +27,15 @@ class Statement extends Model
         'file',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'date' => 'date:Y-m-d'
+        ];
+    }
+
+    protected $dates = ['date'];
+
     public function setDateAttribute(string $value)
     {
         $this->attributes['date'] = Carbon::parse($value)->format('Y-m-d');
@@ -46,15 +55,6 @@ class Statement extends Model
     {
         return Carbon::parse($this->attributes['updated_at'])->format('Y-m-d H:i:s');
     }
-
-    protected function casts(): array
-    {
-        return [
-            'date' => 'date:Y-m-d'
-        ];
-    }
-
-    protected $dates = ['date'];
 
     public function customer(): BelongsTo
     {

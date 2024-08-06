@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
@@ -87,6 +88,16 @@ class User extends Authenticatable implements JWTSubject
             'father_name' => $this->father_name,
             'roles' => $this->roles,
         ];
+    }
+
+    public function setDateAttribute(string $value)
+    {
+        $this->attributes['date_of_birth'] = Carbon::parse($value)->format('Y-m-d');
+    }
+
+    public function getDateAttribute(): string
+    {
+        return Carbon::parse($this->attributes['date_of_birth'])->format('Y-m-d');
     }
 
     public function statements(): HasMany
