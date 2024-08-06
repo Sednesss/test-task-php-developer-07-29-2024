@@ -9,7 +9,7 @@ class StatementNotFoundException extends BaseException
     public function __construct(string $message = '', array $args = [])
     {
         $message = $message ?: 'Statement not found in the database.';
-        $messageCode = 'USER_NOT_FOUND';
+        $messageCode = 'STATEMENT_NOT_FOUND';
 
         parent::__construct($message, $args, $messageCode);
     }
