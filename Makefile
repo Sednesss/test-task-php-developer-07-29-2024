@@ -23,3 +23,6 @@ test:
 
 gql-helper:
 	docker exec -it test_task_07292024_app php artisan lighthouse:ide-helper
+
+phpstan:
+	docker exec -it test_task_07292024_app ./vendor/bin/phpstan analyse
